@@ -36,7 +36,7 @@ const setBattleAttributes = (position, baseAttributes) => {
             case 10: attackDice = "3d25+12"; break;
         }
         let damageDice;
-        switch (baseAttributes["biggestAttribute"]) {
+        switch (baseAttributes["strength"]) {
             case 0: damageDice = "1d5"; break;
             case 1: damageDice = "1d10"; break;
             case 2: damageDice = "1d20"; break;
@@ -54,6 +54,7 @@ const setBattleAttributes = (position, baseAttributes) => {
             HP: baseHealth,
             attackDice: attackDice,
             damageDice: damageDice,
+            extraDamage: 0,
             fear: 0,
         }
     }
