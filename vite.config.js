@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import ghPages from 'vite-plugin-gh-pages';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), ghPages()],
-  base: '/rpg-chainsaw-man-react/', // substitua pelo nome exato do seu repositório
-});
+  plugins: [react()],
+  base: '/rpg-chainsaw-man-react/', // muito importante isso aqui!
+})
