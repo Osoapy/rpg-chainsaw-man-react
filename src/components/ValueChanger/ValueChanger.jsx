@@ -1,15 +1,26 @@
 import { useState } from 'react';
+import globalValues from '../../config/values.jsx';
 
-const ValueChanger = ({ value }) => {
-    const [currentValue, setCurrentValue] = useState(value);
+const ValueChanger = ({ field }) => {
+    const originalType = typeof globalValues[field];
+    const [currentValue, setCurrentValue] = useState(globalValues[field]);
+
+    const handleChange = (e) => {
+        const raw = e.target.value;
+        const newValue = originalType === 'number' ? parseInt(raw, 10) || 0 : raw;
+
+        setCurrentValue(newValue);
+        globalValues[field] = newValue;
+    };
 
     return (
         <div className='valueChanger'>
+            <label>{field}</label>
             <input
                 className="valueEditable"
-                type="text"
+                type={originalType === "number" ? "number" : "text"}
                 value={currentValue}
-                onChange={(e) => setCurrentValue(e.target.value)}
+                onChange={handleChange}
             />
         </div>
     );
