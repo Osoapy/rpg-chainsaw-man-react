@@ -61,11 +61,13 @@ const StyledWrapper = styled.div`
 display: flex;
 flex-direction: column;
 height: 100%;
+width: 100%;
 align-items: center;
 justify-content: center; 
 
 .container {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
 }
@@ -284,6 +286,32 @@ justify-content: center;
   top: 0;
   left: 81%;
   line-height: 6.2px;
-}`;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .radio-wrapper {
+    width: 90%;
+    height: 48px;
+    margin: 5px 0;
+  }
+
+  .btn {
+    font-size: 10px;
+    line-height: 48px;
+    letter-spacing: 2px;
+  }
+
+  .number {
+    font-size: 7px;
+    left: unset;
+    right: 10px;
+  }
+}
+`;
 
 export default MultipleButtons;

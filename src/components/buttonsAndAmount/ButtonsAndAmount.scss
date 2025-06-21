@@ -4,4 +4,26 @@
     gap: 1%;
     justify-content: center;
     align-items: center;
+    width: 100%;
+
+    @media (max-width: 600px) {
+        height: 50vh;
+        flex-direction: column;
+        gap: 7.5%;
+    }
+}
+
+.buttonsAndAmountShortened {
+    display: flex;
+    height: 7.5vh;
+    gap: 1%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    @media (max-width: 600px) {
+        height: 31vh;
+        flex-direction: column;
+        gap: 12.2%;
+    }
 }
