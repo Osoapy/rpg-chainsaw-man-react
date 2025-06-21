@@ -1,6 +1,7 @@
 const globalValues = {
   exorcistLevel: "operator",
-  bonusValue: 10,
+  exorcistType: "operator",
+  demonType: 1,
 };
 
 export default globalValues;

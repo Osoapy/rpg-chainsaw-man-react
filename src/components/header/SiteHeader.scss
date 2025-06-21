@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Adirek';
+    src: url('../../assets/AdirekSans.woff2') format('woff2');
+    font-weight: bolder;
+    font-style: normal;
+}
+
+header {
+    height: 10vh;
+    display: flex;
+    background-color: #b52c2f;
+    color: #fff;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        position: relative;
+        left: 0px;
+        height: 100%;
+    }
+    
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Adirek', sans-serif;
+        margin: 0;
+    }
+}

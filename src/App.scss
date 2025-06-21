@@ -3,3 +3,11 @@
   margin: 0;
   padding: 0;
 }
+
+.pageBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #343837;
+  height: 90vh;
+}
