@@ -5,7 +5,7 @@ import globalValues from "../../config/values.jsx";
 import createExorcist from "../exorcist/baseExorcist.jsx";
 import createDemon from "../demon/baseDemon.jsx";
 
-const battleMaker = () => {
+const battleMaker = (setBattleStats) => {
     /* Making demons & exorcists */
     let listOfExorcists = [];
     let listOfDemons = [];
@@ -14,7 +14,7 @@ const battleMaker = () => {
         listOfExorcists.push(createExorcist(globalValues.exorcistType));
     }
     for(let k = 0; k < globalValues.demonAmount; k++) {
-        listOfDemons.push(createDemon(globalValues.demonType, globalValues.demonFearLevel));
+        listOfDemons.push(createDemon(globalValues.demonType, globalValues.demonFearPercentage));
     }
 
     console.log(listOfExorcists);
@@ -24,6 +24,8 @@ const battleMaker = () => {
     let battleStats = {
         exorcistsKilled: 0,
         demonsKilled: 0,
+        percentageOfExorcistsKilled: 0,
+        percentageOfDemonsKilled: 0,
         isItOver: false,
         exorcistsWon: false,
         whoMovesFirst: decideWhoMovesFirst(listOfExorcists[0], listOfDemons[0]),
@@ -153,7 +155,7 @@ const battleMaker = () => {
                 if (listOfDemons[j].level == 6) {
                     let demonAttack = diceRoll(listOfDemons[j]["battleAttributes"].attackDice);
                     if (demonAttack >= listOfExorcists[exorcistTarget]["battleAttributes"].defense) {
-                        const demonDamage = totalDamage(listOfExorcists[j]);
+                        const demonDamage = totalDamage(listOfDemons[j]);
                         listOfExorcists[exorcistTarget]["battleAttributes"].HP -= demonDamage;
                         console.log("Demon hit Exorcist and did " + demonDamage + " damage! He's with " + listOfExorcists[exorcistTarget]["battleAttributes"].HP + " HP left.");
                         if (listOfExorcists[exorcistTarget]["battleAttributes"].HP <= 0) {
@@ -179,6 +181,10 @@ const battleMaker = () => {
         }
     }
 
+    battleStats["percentageOfDemonsKilled"] = `${(100 * battleStats["demonsKilled"]) / globalValues.demonAmount}%`;
+    battleStats["percentageOfExorcistsKilled"] = `${(100 * battleStats["exorcistsKilled"]) / globalValues.exorcistAmount}%`;
+
+    setBattleStats(battleStats);
     console.log(battleStats);
 }
 

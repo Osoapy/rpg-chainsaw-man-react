@@ -17,13 +17,23 @@ const MultipleButtons = ({ names, field, type }) => {
       globalValues.exorcistType = exorcistRoleList[num - 1];
       console.log("exorcist role: " + globalValues.exorcistType);
     }
+    else if (type == "fearPercent") {
+      const percentageList = [0, 50, 100];
+      globalValues.demonFearPercentage = percentageList[num - 1];
+      console.log("demon fear percentage: " + globalValues.demonFearPercentage);
+    }
     setSelected(num);
   };
+
+  let numList = [];
+  for(let k = 0; k < names.length; k++) {
+    numList.push(k + 1);
+  }
 
   return (
     <StyledWrapper>
       <div className="container">
-        {[1, 2, 3, 4, 5, 6].map((num) => (
+        {numList.map((num) => (
           <div className="radio-wrapper" key={num}>
             <input
               type="radio"

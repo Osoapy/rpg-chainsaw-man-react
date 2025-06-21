@@ -1,12 +1,12 @@
 import setBattleAttributes from '../attributes/battleAttributes.jsx';
 
-const createDemon = (level, fearLevel) => {
+const createDemon = (level, fearPercent) => {
     const demon = {
         position : "demon",
         level : level,
-        fearLevel : fearLevel,
+        fearLevel : fearPercent,
     }
-    demon["battleAttributes"] = setBattleAttributes(demon.position, {level: level, fearPercent: fearLevel});
+    demon["battleAttributes"] = setBattleAttributes(demon.position, {level: level, fearPercent: fearPercent});
     demon["isSpecial"] = false;
     if (level == 6) {
         demon["isSpecial"] = true;

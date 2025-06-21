@@ -4,10 +4,10 @@ const decideWhoMovesFirst = (exorcist, demon) => {
     }
     else {
         switch (exorcist.role) {
-            case "operator" : if (demon.fearLevel > 1) return "demon"; else return "exorcist"; break;
-            case "foreman" : if (demon.fearLevel > 2) return "demon"; else return "exorcist"; break;
-            case "supervisor" : if (demon.fearLevel > 3) return "demon"; else return "exorcist"; break;
-            case "chief": if (demon.fearLevel > 4) return "demon"; else return "exorcist"; break;
+            case "operator" : if (demon.level > 1) return "demon"; else return "exorcist"; break;
+            case "foreman" : if (demon.level > 2) return "demon"; else return "exorcist"; break;
+            case "supervisor" : if (demon.level > 3) return "demon"; else return "exorcist"; break;
+            case "chief": if (demon.level > 4) return "demon"; else return "exorcist"; break;
             default: return "exorcist";
         }
     }
