@@ -63,13 +63,6 @@ const setBaseAttributes = (position, role) => {
         return attributes;
     }
 
-    if (position === "demon") {
-        attributes = {
-            "level": 1,
-            "fearPercent": 0
-        };
-    }
-
     return attributes;
 };
 

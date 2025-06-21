@@ -1,11 +1,19 @@
-import setBaseAttributes from '../attributes/baseAttributes.jsx';
 import setBattleAttributes from '../attributes/battleAttributes.jsx';
 
-const createDemon = () => {
-    const position = "demon";
-    let baseAttributes = setBaseAttributes(position);
-    let battleAttributes = setBattleAttributes(position, baseAttributes);
-    console.log(baseAttributes, battleAttributes);
+const createDemon = (level, fearLevel) => {
+    const demon = {
+        position : "demon",
+        level : level,
+        fearLevel : fearLevel,
+    }
+    demon["battleAttributes"] = setBattleAttributes(demon.position, {level: level, fearPercent: fearLevel});
+    demon["isSpecial"] = false;
+    if (level == 6) {
+        demon["isSpecial"] = true;
+        console.log("This is a special demon!");
+    }
+
+    return demon
 }
 
 export default createDemon;

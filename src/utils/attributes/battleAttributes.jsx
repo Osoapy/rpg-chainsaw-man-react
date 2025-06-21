@@ -59,10 +59,9 @@ const setBattleAttributes = (position, baseAttributes) => {
         }
     }
     if (position == "demon") {
-        const calculateFearLevel = (baseAttributes, isSpecial) => {
-            baseAttributes["fearPercent"];
+        const calculateFearLevel = (baseAttributes) => {
             let fearLevel = 0;
-            if (!isSpecial) {
+            if (!baseAttributes["isSpecial"]) {
                 if (baseAttributes["fearPercent"] <= 30) {
                     fearLevel = 1; 
                 }
@@ -84,12 +83,7 @@ const setBattleAttributes = (position, baseAttributes) => {
             console.log("This demon is level " + baseAttributes["level"] + " and has a fear level of " + fearLevel);
             return fearLevel;
         }
-        let isSpecial = false;
-        if (baseAttributes["level"] == 6) {
-            isSpecial = true;
-            console.log("This is a special demon!");
-        }
-        let fearLevel = calculateFearLevel(baseAttributes, isSpecial);
+        let fearLevel = calculateFearLevel(baseAttributes);
         let baseDefense;
         switch (baseAttributes["level"]) {
             case 1:
@@ -128,7 +122,7 @@ const setBattleAttributes = (position, baseAttributes) => {
                 } 
             break;
             case 6:
-                switch (fearLevel, 1) { 
+                switch (fearLevel) { 
                     case 1: baseDefense = 30; break;
                     case 2: baseDefense = 30; break;
                 }
@@ -172,7 +166,7 @@ const setBattleAttributes = (position, baseAttributes) => {
                 } 
             break;
             case 6: 
-                switch (fearLevel, 1) { 
+                switch (fearLevel) { 
                     case 1: baseHealth = 300; break;
                     case 2: baseHealth = 500; break;
                 } 
@@ -216,7 +210,7 @@ const setBattleAttributes = (position, baseAttributes) => {
                 } 
             break;
             case 6: 
-                switch (fearLevel, 1) { 
+                switch (fearLevel) { 
                     case 1: baseAttackDice = "4d25+5"; break;
                     case 2: baseAttackDice = "4d30+5"; break;
                 } 
@@ -260,7 +254,7 @@ const setBattleAttributes = (position, baseAttributes) => {
                 } 
             break;
             case 6: 
-                switch (fearLevel, 1) { 
+                switch (fearLevel) { 
                     case 1: baseDamageDice = "1d50+10"; break;
                     case 2: baseDamageDice = "1d50+20"; break;
                 } 
