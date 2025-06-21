@@ -264,7 +264,7 @@ const setBattleAttributes = (position, baseAttributes) => {
             defense: baseDefense,
             HP: baseHealth,
             attackDice: baseAttackDice,
-            demageDice: baseDamageDice
+            damageDice: baseDamageDice
         }
     }
     return attributes;

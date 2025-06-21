@@ -1,8 +1,8 @@
 import './Button.scss';
 
-const Button = () => {
+const Button = ({ label, functionOnClick }) => {
     return (
-        <button> Button
+        <button onClick={() => {console.log("button clicked"); functionOnClick()}}>{label}
             <span></span>
         </button>
     );
