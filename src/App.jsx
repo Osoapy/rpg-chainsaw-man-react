@@ -5,6 +5,8 @@ import ValueChanger from './components/ValueChanger/ValueChanger.jsx';
 import battleMaker from './utils/battle/battleMaker.jsx';
 import SiteHeader from './components/header/SiteHeader.jsx';
 import MultipleButtons from './components/radioButtons/multipleButtons/MultipleButtons.jsx';
+import TextInput from './components/inputs/textInput/TextInput.jsx';
+import ButtonsAndAmount from './components/buttonsAndAmount/ButtonsAndAmount.jsx';
 
 function App() {
   let myExorcist = createExorcist("executive");
@@ -21,8 +23,20 @@ function App() {
     <div className="App">
       <SiteHeader></SiteHeader>
       <div className='pageBody'>
-        <MultipleButtons field={"exorcistType"} type={"exorcist"} names={["Operador", "Encarregado", "Supervisor", "Chefia", "Adjunto", "Executivo"]}></MultipleButtons>
-        <MultipleButtons field={"demonType"} type={"demon"} names={["Demônio lvl 1", "Demônio lvl 2", "Demônio lvl 3", "Demônio lvl 4", "Demônio lvl 5", "Demônio Especial"]}></MultipleButtons>
+        <h1>EXORCISTAS</h1>
+        <ButtonsAndAmount 
+          multipleButtonsField={"exorcistType"} 
+          multipleButtonsType={"exorcist"} 
+          multipleButtonsNames={["Operador", "Encarregado", "Supervisor", "Chefia", "Adjunto", "Executivo"]} 
+          textInputLabel={"QUANTIDADE"} textInputPlaceholder={"NÚMERO DE EXORCISTAS"}>
+        </ButtonsAndAmount>
+        <h1>DEMÔNIOS</h1>
+        <ButtonsAndAmount 
+          multipleButtonsField={"demonType"}
+          multipleButtonsType={"demon"}
+          multipleButtonsNames={["Demônio lvl 1", "Demônio lvl 2", "Demônio lvl 3", "Demônio lvl 4", "Demônio lvl 5", "Demônio Especial"]}
+          textInputLabel={"QUANTIDADE"} textInputPlaceholder={"NÚMERO DE DEMÔNIOS"}>
+        </ButtonsAndAmount>
       </div>
     </div>
   )
