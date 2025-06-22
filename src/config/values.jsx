@@ -1,6 +1,6 @@
 const globalValues = {
   exorcistType: "operator",
-  exorcistAmount: 4,
+  exorcistAmount: 1,
   demonFearPercentage: 1,
   demonAmount: 1,
   demonType: 1,
