@@ -1,6 +1,4 @@
-import diceRoll from "./diceRoll";
 import decideWhoMovesFirst from "./decideWhoMovesFirst.jsx";
-import totalDamage from "./totalDamage.jsx";
 import globalValues from "../../config/values.jsx";
 import createExorcist from "../exorcist/baseExorcist.jsx";
 import createDemon from "../demon/baseDemon.jsx";
@@ -11,6 +9,7 @@ const battleMaker = (setBattleStats) => {
     /* Battle variables */
     let battleStats = {
         amountOfExorcistsWins: 0,
+        percentageExorcistWin: 0,
         averageOfExorcistsKilledPerBattle: 0,
         averageOfDemonsKilledPerBattle: 0,
         demonsKilled: 0,
@@ -18,7 +17,6 @@ const battleMaker = (setBattleStats) => {
         isItOver: false,
         percentageOfExorcistsKilled: 0,
         percentageOfDemonsKilled: 0,
-        percentageExorcistWin: 0,
     }
 
     let arrayOfdeadExorcists = [];
@@ -75,14 +73,36 @@ const battleMaker = (setBattleStats) => {
 
                 if (battleStats["isItOver"]) break;
                 else { /* DEMONS TURN */
-                    demonsTurn(targets, amountOfDemons, amountOfExorcists, listOfExorcists, listOfDemons, deadCounts, arrayOfdeadExorcists, p, battleStats, false);
+                    demonsTurn(
+                        targets, 
+                        amountOfDemons, 
+                        amountOfExorcists, 
+                        listOfExorcists, 
+                        listOfDemons, 
+                        deadCounts, 
+                        arrayOfdeadExorcists, 
+                        p, 
+                        battleStats, 
+                        false
+                    );
                 }
 
                 if (battleStats["isItOver"]) break;
             }
             else {
                 /* DEMONS TURN */
-                demonsTurn(targets, amountOfDemons, amountOfExorcists, listOfExorcists, listOfDemons, deadCounts, arrayOfdeadExorcists, p, battleStats, false);
+                demonsTurn(
+                    targets, 
+                    amountOfDemons, 
+                    amountOfExorcists, 
+                    listOfExorcists, 
+                    listOfDemons, 
+                    deadCounts, 
+                    arrayOfdeadExorcists, 
+                    p, 
+                    battleStats, 
+                    false
+                );
                 
                 if (battleStats["isItOver"]) break;
                 else { /* EXORCISTS TURN */

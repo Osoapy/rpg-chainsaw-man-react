@@ -1,4 +1,5 @@
 import diceRoll from "../diceRoll";
+import applyMassiveDamage from "../massiveDamage";
 import totalDamage from "../totalDamage";
 
 const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadExorcists, p, battleStats, isSpecial) => {
@@ -12,6 +13,9 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                 }
                 else {
                     listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP -= demonDamage;
+                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
+                        applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
+                    }
                     if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP < 0) {
                         listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = 0;
                     }
@@ -29,10 +33,13 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                     else {
                         console.log("ONE EXORCIST HAS FALLEN!");
                         battleStats["exorcistsKilled"]++;
-                        deadExorcists++;
+                        deadCounts.deadExorcists++;
                         arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
                         targets.exorcistTarget++;
                     }
+                }
+                else if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
+                    applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
                 }
             }
             else {
@@ -46,9 +53,21 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                 let demonAttack = diceRoll(listOfDemons[j]["battleAttributes"].attackDice);
                 if (demonAttack >= listOfExorcists[targets.exorcistTarget]["battleAttributes"].defense) {
                     const demonDamage = totalDamage(listOfDemons[j]);
+                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP == 0) {
+                        listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = -1;
+                    }
+                    else {
+                        listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP -= demonDamage;
+                        if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
+                            applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
+                        }
+                        if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP < 0) {
+                            listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = 0;
+                        }
+                    }
                     listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP -= demonDamage;
                     console.log("Demon hit Exorcist and did " + demonDamage + " damage! He's with " + listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP + " HP left.");
-                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP <= 0) {
+                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP < 0) {
                         if (targets.exorcistTarget === amountOfExorcists - 1) {
                             console.log("THE BATTLE HAS ENDED!");
                             battleStats["exorcistsKilled"]++;
@@ -64,6 +83,9 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                             arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
                             targets.exorcistTarget++;
                         }
+                    }
+                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
+                        applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
                     }
                 }
                 else {

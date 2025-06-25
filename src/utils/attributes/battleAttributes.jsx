@@ -52,8 +52,13 @@ const setBattleAttributes = (position, baseAttributes) => {
         attributes = {
             defense: baseDefense,
             HP: baseHealth,
+            maxHP: baseHealth,
             attackDice: attackDice,
             damageDice: damageDice,
+            isStunned: false,
+            turnsStunned: 0,
+            isBlind: false,
+            turnsBlinded: 0,
             extraDamage: 0,
             fear: 0,
         }
