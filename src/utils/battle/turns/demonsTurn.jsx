@@ -2,26 +2,48 @@ import diceRoll from "../diceRoll";
 import applyMassiveDamage from "../massiveDamage";
 import totalDamage from "../totalDamage";
 
+/**
+ * Simulates a turn for demons in the battle.
+ * @param {Object} targets - Current targets for demons and exorcists.
+ * @param {number} amountOfDemons - Total number of demons.
+ * @param {number} amountOfExorcists - Total number of exorcists.
+ * @param {Array} listOfExorcists - List of exorcist objects.
+ * @param {Array} listOfDemons - List of demon objects.
+ * @param {Object} deadCounts - Count of dead exorcists and demons.
+ * @param {Array} arrayOfDeadExorcists - Array tracking dead exorcists.
+ * @param {number} p - Index for the current battle iteration.
+ * @param {Object} battleStats - Statistics of the current battle.
+ * @param {boolean} isSpecial - Flag for special demon attacks.
+ */
 const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadExorcists, p, battleStats, isSpecial) => {
+    // Handle regular demon attacks
     if (!isSpecial) {
-        for(let j = targets.demonTarget; j < amountOfDemons; j++) {
+        for (let j = targets.demonTarget; j < amountOfDemons; j++) {
             let demonAttack = diceRoll(listOfDemons[j]["battleAttributes"].attackDice);
             if (demonAttack >= listOfExorcists[targets.exorcistTarget]["battleAttributes"].defense) {
                 const demonDamage = totalDamage(listOfDemons[j]);
-                if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP == 0) {
+                // Check for exorcist HP before attack
+                if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP === 0) {
                     listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = -1;
-                }
-                else {
+                } else {
+                    // Check for insta kill
+                    if (demonDamage >= listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP * 2) {
+                        listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = -1;
+                    }
+                    // Apply damage to exorcist
                     listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP -= demonDamage;
+                    // Check for massive damage
                     if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
                         applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
                     }
+                    // Ensure HP doesn't go below zero
                     if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP < 0) {
                         listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = 0;
                     }
                 }
                 console.log("Demon hit Exorcist and did " + demonDamage + " damage! He's with " + listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP + " HP left.");
-                if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP < 0) {
+                // Handle exorcist death
+                if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP <= 0) {
                     if (targets.exorcistTarget === amountOfExorcists - 1) {
                         console.log("THE BATTLE HAS ENDED!");
                         battleStats["exorcistsKilled"]++;
@@ -29,34 +51,33 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                         deadCounts.deadExorcists++;
                         arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
                         break;
-                    }
-                    else {
+                    } else {
                         console.log("ONE EXORCIST HAS FALLEN!");
                         battleStats["exorcistsKilled"]++;
                         deadCounts.deadExorcists++;
                         arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
                         targets.exorcistTarget++;
                     }
-                }
-                else if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
+                } else if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
                     applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
                 }
-            }
-            else {
+            } else {
                 console.log("The demon missed!");
             }
         }
-    }
-    else {
-        for(let j = targets.demonTarget; j < amountOfDemons; j++) {
-            if (listOfDemons[j].level == 6) {
+    } else { // Handle special demon attacks
+        for (let j = targets.demonTarget; j < amountOfDemons; j++) {
+            if (listOfDemons[j].level === 6) {
                 let demonAttack = diceRoll(listOfDemons[j]["battleAttributes"].attackDice);
                 if (demonAttack >= listOfExorcists[targets.exorcistTarget]["battleAttributes"].defense) {
                     const demonDamage = totalDamage(listOfDemons[j]);
-                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP == 0) {
+                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP === 0) {
                         listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = -1;
-                    }
-                    else {
+                    } else {
+                        // Check for insta kill
+                        if (demonDamage >= listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP * 2) {
+                            listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = -1;
+                        }
                         listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP -= demonDamage;
                         if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
                             applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
@@ -65,9 +86,8 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                             listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP = 0;
                         }
                     }
-                    listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP -= demonDamage;
                     console.log("Demon hit Exorcist and did " + demonDamage + " damage! He's with " + listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP + " HP left.");
-                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP < 0) {
+                    if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].HP <= 0) {
                         if (targets.exorcistTarget === amountOfExorcists - 1) {
                             console.log("THE BATTLE HAS ENDED!");
                             battleStats["exorcistsKilled"]++;
@@ -75,8 +95,7 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                             arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
                             battleStats["isItOver"] = true;
                             break;
-                        }
-                        else {
+                        } else {
                             console.log("ONE EXORCIST HAS FALLEN!");
                             battleStats["exorcistsKilled"]++;
                             deadCounts.deadExorcists++;
@@ -87,8 +106,7 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                     if (listOfExorcists[targets.exorcistTarget]["battleAttributes"].maxHP < demonDamage) {
                         applyMassiveDamage(listOfExorcists[targets.exorcistTarget]);
                     }
-                }
-                else {
+                } else {
                     console.log("The demon missed!");
                 }
             }
