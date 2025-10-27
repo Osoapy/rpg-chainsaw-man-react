@@ -100,7 +100,7 @@ const setBattleAttributes = (position, baseAttributes) => {
             break;
             case 2: 
                 switch (fearLevel) {
-                    case 1: baseDefense = 9; break;
+                    case 1: baseDefense = 10; break;
                     case 2: baseDefense = 10; break;
                     case 3: baseDefense = 10; break;
                 }
@@ -114,16 +114,16 @@ const setBattleAttributes = (position, baseAttributes) => {
             break;
             case 4: 
                 switch (fearLevel) { 
-                    case 1: baseDefense = 15; break;
-                    case 2: baseDefense = 15; break;
-                    case 3: baseDefense = 18; break;
+                    case 1: baseDefense = 18; break;
+                    case 2: baseDefense = 18; break;
+                    case 3: baseDefense = 20; break;
                 } 
             break;
             case 5: 
                 switch (fearLevel) { 
-                    case 1: baseDefense = 20; break;
-                    case 2: baseDefense = 20; break;
-                    case 3: baseDefense = 22; break;
+                    case 1: baseDefense = 22; break;
+                    case 2: baseDefense = 22; break;
+                    case 3: baseDefense = 25; break;
                 } 
             break;
             case 6:
@@ -138,14 +138,14 @@ const setBattleAttributes = (position, baseAttributes) => {
             case 1:
                 switch (fearLevel) { 
                     case 1: baseHealth = 5; break;
-                    case 2: baseHealth = 20; break;
-                    case 3: baseHealth = 40; break;
+                    case 2: baseHealth = 35; break;
+                    case 3: baseHealth = 50; break;
                 } 
             break;
             case 2: 
                 switch (fearLevel) { 
-                    case 1: baseHealth = 50; break;
-                    case 2: baseHealth = 60; break;
+                    case 1: baseHealth = 60; break;
+                    case 2: baseHealth = 70; break;
                     case 3: baseHealth = 90; break;
                 } 
             break;
@@ -158,8 +158,8 @@ const setBattleAttributes = (position, baseAttributes) => {
             break;
             case 4: 
                 switch (fearLevel) { 
-                    case 1: baseHealth = 120; break;
-                    case 2: baseHealth = 130; break;
+                    case 1: baseHealth = 140; break;
+                    case 2: baseHealth = 140; break;
                     case 3: baseHealth = 150; break;
                 } 
             break;
@@ -172,7 +172,7 @@ const setBattleAttributes = (position, baseAttributes) => {
             break;
             case 6: 
                 switch (fearLevel) { 
-                    case 1: baseHealth = 300; break;
+                    case 1: baseHealth = 400; break;
                     case 2: baseHealth = 500; break;
                 } 
             break;
@@ -202,9 +202,9 @@ const setBattleAttributes = (position, baseAttributes) => {
             break;
             case 4: 
                 switch (fearLevel) { 
-                    case 1: baseAttackDice = "1d20+3"; break;
-                    case 2: baseAttackDice = "2d20+3"; break;
-                    case 3: baseAttackDice = "2d20+3"; break;
+                    case 1: baseAttackDice = "1d20+5"; break;
+                    case 2: baseAttackDice = "2d20+5"; break;
+                    case 3: baseAttackDice = "2d20+5"; break;
                 } 
             break;
             case 5: 
@@ -226,14 +226,14 @@ const setBattleAttributes = (position, baseAttributes) => {
             case 1:
                 switch (fearLevel) { 
                     case 1: baseDamageDice = "1d5"; break;
-                    case 2: baseDamageDice = "1d8"; break;
-                    case 3: baseDamageDice = "1d10"; break;
+                    case 2: baseDamageDice = "1d10+2"; break;
+                    case 3: baseDamageDice = "1d10+3"; break;
                 } 
             break;
             case 2: 
                 switch (fearLevel) { 
-                    case 1: baseDamageDice = "1d10"; break;
-                    case 2: baseDamageDice = "1d12+1"; break;
+                    case 1: baseDamageDice = "1d10+3"; break;
+                    case 2: baseDamageDice = "1d12+3"; break;
                     case 3: baseDamageDice = "1d15+3"; break;
                 } 
             break;
@@ -246,16 +246,16 @@ const setBattleAttributes = (position, baseAttributes) => {
             break;
             case 4: 
                 switch (fearLevel) { 
-                    case 1: baseDamageDice = "1d15+3"; break;
+                    case 1: baseDamageDice = "1d15+5"; break;
                     case 2: baseDamageDice = "1d20+5"; break;
                     case 3: baseDamageDice = "1d20+5"; break;
                 } 
             break;
             case 5: 
                 switch (fearLevel) { 
-                    case 1: baseDamageDice = "1d25"; break;
-                    case 2: baseDamageDice = "1d25"; break;
-                    case 3: baseDamageDice = "1d30+5"; break;
+                    case 1: baseDamageDice = "1d25+5"; break;
+                    case 2: baseDamageDice = "1d25+5"; break;
+                    case 3: baseDamageDice = "1d30+15"; break;
                 } 
             break;
             case 6: 

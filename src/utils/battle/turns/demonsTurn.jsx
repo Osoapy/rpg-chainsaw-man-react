@@ -14,7 +14,7 @@ import totalDamage from "../totalDamage";
  * @param {number} p - Index for the current battle iteration.
  * @param {Object} battleStats - Statistics of the current battle.
  * @param {boolean} isSpecial - Flag for special demon attacks.
- */
+*/
 const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadExorcists, p, battleStats, isSpecial) => {
     // Handle regular demon attacks
     if (!isSpecial) {

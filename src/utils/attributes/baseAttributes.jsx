@@ -2,9 +2,9 @@ const allAttributesLimit = {
     "operator": 10,
     "foreman": 14,
     "supervisor": 15,
-    "chief": 17,
-    "adjunct": 20,
-    "executive": 25
+    "chief": 18,
+    "adjunct": 22,
+    "executive": 28
 };
 const singleAttributesLimit = {
     "operator": 3,
