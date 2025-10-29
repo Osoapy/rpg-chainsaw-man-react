@@ -1,4 +1,5 @@
 const diceRoll = (dice) => {
+    console.log("Rolling dice:", dice);
     const regex = /(\d+)d(\d+)([+-]\d+)?/;
     const match = dice.match(regex);
     if (!match) {

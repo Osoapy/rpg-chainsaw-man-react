@@ -11,8 +11,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "firebase": "^12.4.0",
+    "firebase-admin": "^13.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.9.4",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

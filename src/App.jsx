@@ -1,14 +1,39 @@
 import './App.scss'
+import { useEffect } from 'react';
 import battleMaker from './utils/battle/battleMaker.jsx';
 import SiteHeader from './components/header/SiteHeader.jsx';
 import ButtonsAndAmount from './components/buttonsAndAmount/ButtonsAndAmount.jsx';
 import Button from './components/button/Button.jsx';
 import BattleLogCard from './components/card/BattleLogCard.jsx';
 import { useState } from 'react';
-import MultipleButtons from './components/radioButtons/multipleButtons/MultipleButtons.jsx';
+import getDocFromFirestore from './utils/database/Firebase.jsx';
+import globalValues from './config/values.jsx';
 
 function App() {
   const [battleStats, setBattleStats] = useState({});
+  const [demonBattleAttributes, setDemonBattleAttributes] = useState({});
+  const levelsOfDemons = ["demon1", "demon2", "demon3", "demon4", "demon5", "demon6"];
+
+  useEffect(() => {
+    const fetchDemons = async () => {
+      const demonsData = {};
+      try {
+        for (const level of levelsOfDemons) {
+          const data = await getDocFromFirestore("Demon", level);
+          console.log(`Fetched ${level}:`, data);
+          demonsData[level] = data;
+        }
+
+        setDemonBattleAttributes(demonsData);
+        console.log("✅ demonBattleAttributes atualizados:", demonsData); // use o objeto local, não o estado
+
+      } catch (error) {
+        console.error("Erro ao buscar demons:", error);
+      }
+    };
+
+    fetchDemons();
+  }, []);
 
   return (
     <div className="App">
@@ -43,7 +68,16 @@ function App() {
           </ButtonsAndAmount>
         </div>
         <div style={{display: "flex", justifyContent: "center", height: "15vh", alignItems: "center"}}>
-          <Button label={"BATALHAR"} functionOnClick={battleMaker} functionOnClickParam={setBattleStats}></Button>
+          <Button 
+            label={"BATALHAR"} 
+            functionOnClick={() => {
+              if (!demonBattleAttributes || Object.keys(demonBattleAttributes).length === 0) {
+                console.warn("⚠️ Demon data ainda não carregado!");
+                return;
+              }
+              battleMaker(setBattleStats, demonBattleAttributes);
+            }}
+          ></Button>
         </div>
         <BattleLogCard battleStats={battleStats}></BattleLogCard>
       </div>
