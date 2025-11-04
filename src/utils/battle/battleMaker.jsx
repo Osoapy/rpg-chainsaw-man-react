@@ -6,7 +6,6 @@ import demonsTurn from "./turns/demonsTurn.jsx";
 import exorcistsTurn from "./turns/exorcistsTurn.jsx";
 
 const battleMaker = (setBattleStats, demonBattleAttributes) => {
-    console.log("⚔️ Batalhas iniciadaAAAAAAAAAAAAAAAs!");
     console.log("Demon Battle Attributes received in battleMaker:", demonBattleAttributes);
     /* Battle variables */
     let battleStats = {

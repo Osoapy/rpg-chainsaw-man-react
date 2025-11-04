@@ -55,7 +55,7 @@ export default function ADM() {
   const db = getFirestore(app)
 
   // coleções que tu quer exibir
-  const COLLECTIONS = ['Demon']
+  const COLLECTIONS = ['Demon', 'Attributes', 'Rules']
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setUser(u))

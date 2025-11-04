@@ -12,6 +12,8 @@ import globalValues from './config/values.jsx';
 function App() {
   const [battleStats, setBattleStats] = useState({});
   const [demonBattleAttributes, setDemonBattleAttributes] = useState({});
+  const [exorcistBattleAttributes, setExorcistBattleAttributes] = useState({});
+  const storedExorcistAttributes = ["agility", "attackDice", "damageDice"];
   const levelsOfDemons = ["demon1", "demon2", "demon3", "demon4", "demon5", "demon6"];
 
   useEffect(() => {
@@ -33,6 +35,28 @@ function App() {
     };
 
     fetchDemons();
+  }, []);
+
+  useEffect(() => {
+    const fetchAttributes = async () => {
+      const attributesData = {};
+      try {
+        for (const storedAttribute of storedExorcistAttributes) {
+          const data = await getDocFromFirestore("Attributes", storedAttribute);
+          console.log(`Fetched ${storedAttribute}:`, data);
+          attributesData[storedAttribute] = data;
+        }
+
+        setExorcistBattleAttributes(attributesData);
+        console.log("✅ exorcistBattleAttributes atualizados:", attributesData); // use o objeto local, não o estado
+
+      } catch (error) {
+        console.error("Erro ao buscar battleAttributes:", error);
+        return null;
+      }
+    };
+
+    fetchAttributes();
   }, []);
 
   return (
