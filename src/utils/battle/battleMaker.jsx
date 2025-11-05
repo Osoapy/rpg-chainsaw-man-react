@@ -5,8 +5,9 @@ import createDemon from "../demon/baseDemon.jsx";
 import demonsTurn from "./turns/demonsTurn.jsx";
 import exorcistsTurn from "./turns/exorcistsTurn.jsx";
 
-const battleMaker = (setBattleStats, demonBattleAttributes) => {
+const battleMaker = (setBattleStats, demonBattleAttributes, exorcistBattleAttributes) => {
     console.log("Demon Battle Attributes received in battleMaker:", demonBattleAttributes);
+    console.log("Exorcist Battle Attributes received in battleMaker:", exorcistBattleAttributes);
     /* Battle variables */
     let battleStats = {
         amountOfExorcistsWins: 0,
@@ -35,7 +36,7 @@ const battleMaker = (setBattleStats, demonBattleAttributes) => {
         let listOfDemons = [];
 
         for(let k = 0; k < globalValues.exorcistAmount; k++) {
-            listOfExorcists.push(createExorcist(exorcistType));
+            listOfExorcists.push(createExorcist(exorcistType, exorcistBattleAttributes));
         }
         for(let k = 0; k < globalValues.demonAmount; k++) {
             listOfDemons.push(createDemon(demonType, fearPercentage, demonBattleAttributes));

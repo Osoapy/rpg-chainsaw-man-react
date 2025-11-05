@@ -5,7 +5,7 @@ import setWeapon from './weapons.jsx';
 
 const isReforcedPercentage = 0.1;
 
-const createExorcist = (role) => {
+const createExorcist = (role, exorcistBattleAttributes) => {
     const exorcist = {
         position : "exorcist",
         role : role,
@@ -13,7 +13,7 @@ const createExorcist = (role) => {
         isWeaponReforced : (Math.random() < isReforcedPercentage),
     };
     exorcist["baseAttributes"] = setBaseAttributes(exorcist.position, role);
-    exorcist["battleAttributes"] = setBattleAttributes(exorcist.position, exorcist.baseAttributes);
+    exorcist["battleAttributes"] = setBattleAttributes(exorcist.position, exorcist.baseAttributes, exorcistBattleAttributes);
     if (exorcist["isBetterThanSupervisor"]) {
         setExpecialization(exorcist.baseAttributes, exorcist.battleAttributes);
     }

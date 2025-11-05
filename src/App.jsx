@@ -13,7 +13,7 @@ function App() {
   const [battleStats, setBattleStats] = useState({});
   const [demonBattleAttributes, setDemonBattleAttributes] = useState({});
   const [exorcistBattleAttributes, setExorcistBattleAttributes] = useState({});
-  const storedExorcistAttributes = ["agility", "attackDice", "damageDice"];
+  const storedExorcistAttributes = ["defense", "attackDice", "damageDice"];
   const levelsOfDemons = ["demon1", "demon2", "demon3", "demon4", "demon5", "demon6"];
 
   useEffect(() => {
@@ -99,7 +99,11 @@ function App() {
                 console.warn("⚠️ Demon data ainda não carregado!");
                 return;
               }
-              battleMaker(setBattleStats, demonBattleAttributes);
+              if (!exorcistBattleAttributes || Object.keys(exorcistBattleAttributes).length === 0) {
+                console.warn("⚠️ Exorcist data ainda não carregado!");
+                return;
+              }
+              battleMaker(setBattleStats, demonBattleAttributes, exorcistBattleAttributes);
             }}
           ></Button>
         </div>
