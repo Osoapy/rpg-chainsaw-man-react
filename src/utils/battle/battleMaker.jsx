@@ -42,8 +42,8 @@ const battleMaker = (setBattleStats, demonBattleAttributes, exorcistBattleAttrib
             listOfDemons.push(createDemon(demonType, fearPercentage, demonBattleAttributes));
         }
 
-        console.log(listOfExorcists);
-        console.log(listOfDemons);
+        console.log(listOfExorcists.slice());
+        console.log(listOfDemons.slice());
 
         battleStats["whoMovesFirst"] = decideWhoMovesFirst(listOfExorcists[0], listOfDemons[0]);
         console.log("Who moves first: " + battleStats["whoMovesFirst"]);

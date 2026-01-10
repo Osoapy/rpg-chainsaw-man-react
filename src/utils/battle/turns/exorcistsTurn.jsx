@@ -2,7 +2,7 @@ import diceRoll from "../diceRoll";
 import totalDamage from "../totalDamage";
 
 const exorcistsTurn = (targets, amountOfExorcists, amountOfDemons, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadDemons, p, battleStats) => {
-    for(let k = targets.exorcistTarget; k < amountOfExorcists; k++) {
+    for(let k = 0; k < listOfExorcists.length; k++) {
         let exorcistAttackRoll = diceRoll(listOfExorcists[k]["battleAttributes"].attackDice, true);
         let exorcistAttack = exorcistAttackRoll.roll;
         if (listOfExorcists[k]["battleAttributes"].isBlinded == true) {
