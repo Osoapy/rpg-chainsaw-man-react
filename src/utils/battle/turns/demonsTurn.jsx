@@ -3,20 +3,26 @@ import applyMassiveDamage from "../massiveDamage";
 import totalDamage from "../totalDamage";
 
 const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadExorcists, p, battleStats) => {
+    let isThisASecondaryTurn = false;
+    let isTheSecondaryTurnOver = 1;
     for (let j = targets.demonTarget; j < amountOfDemons; j++) {
         console.log("----------------------------------");
         console.log("DEMON'S TURN! Demon number: ", j);
         console.log("----------------------------------");
         let demonAttack = diceRoll(listOfDemons[j]["battleAttributes"].attackDice);
-        if (demonAttack >= listOfExorcists[0]["battleAttributes"].defense) {
+        let demonTargetForThisTurn = 0;
+        if (isThisASecondaryTurn && listOfExorcists[1]) {
+            demonTargetForThisTurn = 1;
+        }
+        if (demonAttack >= listOfExorcists[demonTargetForThisTurn]["battleAttributes"].defense) {
             const demonDamage = totalDamage(listOfDemons[j]);
             console.log("Demon damage for this turn is: ", demonDamage);
             let demonDamageLeft = 0; let didTheDemonKillAnExorcistThisTurn = false;
             // Check for exorcist HP before attack
-            if (listOfExorcists[0]["battleAttributes"].HP === 0) {
+            if (listOfExorcists[demonTargetForThisTurn]["battleAttributes"].HP === 0) {
                 console.log("ONE EXORCIST HAS FALLEN!");
                 didTheDemonKillAnExorcistThisTurn = true;
-                    listOfExorcists.splice(0, 1);
+                    listOfExorcists.splice(demonTargetForThisTurn, 1);
                     const listOfExorcistsCopy = listOfExorcists.slice();
                     console.log("Exorcists alive rn: ", listOfExorcistsCopy);
                     battleStats["exorcistsKilled"]++;
@@ -31,12 +37,12 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                 console.log("The demon killed the exorcist! There is ", demonDamageLeft, " leftover damage left");
             }
             // Check for instant kill
-            else if (demonDamage >= listOfExorcists[0]["battleAttributes"].maxHP * 2) {
+            else if (demonDamage >= listOfExorcists[demonTargetForThisTurn]["battleAttributes"].maxHP * 2) {
                 console.log("ONE EXORCIST HAS FALLEN!");
                 didTheDemonKillAnExorcistThisTurn = true;
-                demonDamageLeft = demonDamage - listOfExorcists[0]["battleAttributes"].maxHP * 2;
-                console.log("The demon did instant kill to the first exorcist!", listOfExorcists[0]["battleAttributes"].maxHP * 2, " of the damage was used for the IK, now there is ", demonDamageLeft, " left");
-                    listOfExorcists.splice(0, 1);
+                demonDamageLeft = demonDamage - listOfExorcists[demonTargetForThisTurn]["battleAttributes"].maxHP * 2;
+                console.log("The demon did instant kill to the first exorcist!", listOfExorcists[demonTargetForThisTurn]["battleAttributes"].maxHP * 2, " of the damage was used for the IK, now there is ", demonDamageLeft, " left");
+                    listOfExorcists.splice(demonTargetForThisTurn, 1);
                     const listOfExorcistsCopy = listOfExorcists.slice();
                     console.log("Exorcists alive rn: ", listOfExorcistsCopy);
                     battleStats["exorcistsKilled"]++;
@@ -50,24 +56,24 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
             }
             else {
                 // Apply damage to exorcist
-                listOfExorcists[0]["battleAttributes"].HP -= demonDamage;
+                listOfExorcists[demonTargetForThisTurn]["battleAttributes"].HP -= demonDamage;
                 // Check for massive damage
-                if (listOfExorcists[0]["battleAttributes"].maxHP / 2 < demonDamage) {
-                    applyMassiveDamage(listOfExorcists[0]);
+                if (listOfExorcists[demonTargetForThisTurn]["battleAttributes"].maxHP / 2 < demonDamage) {
+                    applyMassiveDamage(listOfExorcists[demonTargetForThisTurn]);
                 }
                 // Ensure HP doesn't go below zero
-                if (listOfExorcists[0]["battleAttributes"].HP < 0) {
-                    demonDamageLeft = Math.abs(listOfExorcists[0]["battleAttributes"].HP);
+                if (listOfExorcists[demonTargetForThisTurn]["battleAttributes"].HP < 0) {
+                    demonDamageLeft = Math.abs(listOfExorcists[demonTargetForThisTurn]["battleAttributes"].HP);
                     console.log("The demon did " + (demonDamage - demonDamageLeft) + " damage to an exorcist, he's left dying and now there is ", demonDamageLeft, " leftover damage left.");
-                    listOfExorcists[0]["battleAttributes"].HP = 0;
+                    listOfExorcists[demonTargetForThisTurn]["battleAttributes"].HP = 0;
                 }
                 else {
-                    console.log("The demon did " + demonDamage + " damage to an exorcist, he's with " + listOfExorcists[0]["battleAttributes"].HP + " HP left.");
+                    console.log("The demon did " + demonDamage + " damage to an exorcist, he's with " + listOfExorcists[demonTargetForThisTurn]["battleAttributes"].HP + " HP left.");
                 }
             }
-            let counter = 1;
+            let counter = demonTargetForThisTurn + 1;
             if (didTheDemonKillAnExorcistThisTurn)
-                counter = 0;
+                counter = demonTargetForThisTurn;
             for (let k = counter; demonDamageLeft > 0 && listOfExorcists[k]; k++) {
                 // Apply damage to the next exorcist
                 console.log("Applying leftover damage to next exorcist...", listOfExorcists[k]);
@@ -126,6 +132,16 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
             }
             if (battleStats["isItOver"]) {
                 break;
+            }
+            if (listOfDemons[j].level > 5) {
+                isTheSecondaryTurnOver++;
+                if (isTheSecondaryTurnOver % 2 == 0) {
+                    j--;
+                    isThisASecondaryTurn = true;
+                }
+                else {
+                    isThisASecondaryTurn = false;
+                }
             }
         } else {
             console.log("The demon missed!");
