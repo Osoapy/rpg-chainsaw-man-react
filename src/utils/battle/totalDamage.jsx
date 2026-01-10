@@ -10,7 +10,7 @@ const totalDamage = (character) => {
         extraDamage = character["battleAttributes"]["extraDamage"];
     }
     if (character["battleAttributes"]["extraDamageDice"]) {
-        extraDamageDiceRoll = diceRoll(character["battleAttributes"]["extraDamageDice"], true).sum;
+        extraDamageDice = diceRoll(character["battleAttributes"]["extraDamageDice"], true).sum;
     }
 
     return baseDamage + weaponDamage + extraDamage + extraDamageDice;
