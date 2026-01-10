@@ -1,5 +1,5 @@
-import { collection, doc, getDoc } from "firebase/firestore";
-import { db } from "../../../database_edit/config/Firebase.jsx";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../database_edit/config/Firebase.jsx";
 
 export async function getDocFromFirestore(collection, id) {
   const docRef = doc(db, collection, id);

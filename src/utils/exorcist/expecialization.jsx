@@ -11,7 +11,7 @@ const setExpecialization = (baseAttributes, battleAttributes) => {
         if (baseAttributes[attributesList[i]] >= 8) {
             switch (attributesList[i]) {
                 case "strength":
-                    battleAttributes["extraDamage"] += 10;
+                    battleAttributes["extraDamageDice"] = "3d10";
                     hasSpecializationOnStrength = true;
                     break;
                 case "agility":
@@ -40,7 +40,7 @@ const setExpecialization = (baseAttributes, battleAttributes) => {
         const randomIndex = Math.floor(Math.random() * attributesList.length);
         const randomAttribute = attributesList[randomIndex];
         if (randomAttribute === "strength" && !hasSpecializationOnStrength) {
-            battleAttributes["extraDamage"] += 10;
+            battleAttributes["extraDamageDice"] = "3d10";
             console.log("The random expecialization was on strength!");
             getRandomSpecializationByBeingChief = true;
         }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getFirestore, collection, getDocs, doc, setDoc } from 'firebase/firestore'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth, app } from '../../config/Firebase.jsx'
-import './ADM.scss'
+import './Adm.scss'
 
 function isPrimitive(value) {
   return value === null || ['string', 'number', 'boolean'].includes(typeof value)
@@ -49,12 +49,11 @@ function ObjectEditor({ data, onChange, path = '' }) {
   return <span>Unsupported</span>
 }
 
-export default function ADM() {
+export default function Adm() {
   const [user, setUser] = useState(null)
   const [data, setData] = useState({})
   const db = getFirestore(app)
 
-  // coleções que tu quer exibir
   const COLLECTIONS = ['Demon', 'Attributes', 'Rules']
 
   useEffect(() => {

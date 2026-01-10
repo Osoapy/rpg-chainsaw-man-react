@@ -1,13 +1,11 @@
 import './App.scss'
-import { useEffect } from 'react';
+import { useEffect, useState  } from 'react';
 import battleMaker from './utils/battle/battleMaker.jsx';
 import SiteHeader from './components/header/SiteHeader.jsx';
 import ButtonsAndAmount from './components/buttonsAndAmount/ButtonsAndAmount.jsx';
 import Button from './components/button/Button.jsx';
-import BattleLogCard from './components/card/BattleLogCard.jsx';
-import { useState } from 'react';
-import getDocFromFirestore from './utils/database/Firebase.jsx';
-import globalValues from './config/values.jsx';
+import BattleLogCard from './components/card/BattleLogCard.jsx';  
+import getDocFromFirestore from './database/Firebase.jsx';
 
 function App() {
   const [battleStats, setBattleStats] = useState({});

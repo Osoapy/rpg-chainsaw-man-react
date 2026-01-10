@@ -1,4 +1,4 @@
-const diceRoll = (dice) => {
+const diceRoll = (dice, doesItNeedToSumTheResults) => {
     console.log("Rolling dice:", dice);
     const regex = /(\d+)d(\d+)([+-]\d+)?/;
     const match = dice.match(regex);
@@ -12,6 +12,10 @@ const diceRoll = (dice) => {
 
     const results = Array.from({ length: amount }, () => Math.floor(Math.random() * faces) + 1);
     const biggest = Math.max(...results);
+    if (doesItNeedToSumTheResults) {
+        let sum = results.reduce((a, b) => a + b, 0);
+        return sum + modifier;
+    }
     return biggest + modifier;
 }
 
