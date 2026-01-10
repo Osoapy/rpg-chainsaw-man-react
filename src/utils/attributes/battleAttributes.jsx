@@ -23,7 +23,7 @@ const setBattleAttributes = (position, baseAttributes, battleAttributes) => {
     if (position == "demon") {
         const calculateFearLevel = (baseAttributes) => {
             let fearLevel = 0;
-            if (!baseAttributes["isSpecial"]) {
+            if (baseAttributes["level"] < 6) {
                 if (baseAttributes["fearPercent"] <= 30) {
                     fearLevel = 1; 
                 }
@@ -34,21 +34,21 @@ const setBattleAttributes = (position, baseAttributes, battleAttributes) => {
                     fearLevel = 3;
                 }
             }
+            else if (baseAttributes["fearPercent"] <= 50) {
+                fearLevel = 1;
+            }
             else {
-                if (baseAttributes["fearPercent"] <= 50) {
-                    fearLevel = 1;
-                }
-                else {
-                    fearLevel = 2;
-                }
+                fearLevel = 2;
             }
             console.log("This demon is level " + baseAttributes["level"] + " and has a fear level of " + fearLevel);
             return fearLevel;
         }
 
-        const demonData = battleAttributes[`demon${baseAttributes["level"]}`][`fear${calculateFearLevel(baseAttributes)}`];
+        const fearLevel = calculateFearLevel(baseAttributes);
+        const demonData = battleAttributes[`demon${baseAttributes["level"]}`][`fear${fearLevel}`];
 
         attributes = {
+            fearLevel: fearLevel,
             defense: demonData.defense,
             HP: demonData.health,
             attackDice: demonData.attackDice,

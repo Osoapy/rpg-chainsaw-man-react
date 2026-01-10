@@ -3,7 +3,8 @@ import totalDamage from "../totalDamage";
 
 const exorcistsTurn = (targets, amountOfExorcists, amountOfDemons, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadDemons, p, battleStats) => {
     for(let k = targets.exorcistTarget; k < amountOfExorcists; k++) {
-        let exorcistAttack = diceRoll(listOfExorcists[k]["battleAttributes"].attackDice);
+        let exorcistAttackRoll = diceRoll(listOfExorcists[k]["battleAttributes"].attackDice, true);
+        let exorcistAttack = exorcistAttackRoll.roll;
         if (listOfExorcists[k]["battleAttributes"].isBlinded == true) {
             const dice = Math.floor(Math.random() * 2) + 1;
             console.log("The exorcist is blinded and is trying to attack!");
@@ -22,7 +23,7 @@ const exorcistsTurn = (targets, amountOfExorcists, amountOfDemons, listOfExorcis
                 listOfExorcists[k]["battleAttributes"].isStunned = false;
             }
         }
-        else if (exorcistAttack >= listOfDemons[targets.demonTarget]["battleAttributes"].defense) {
+        else if (exorcistAttack >= listOfDemons[targets.demonTarget]["battleAttributes"].defense || exorcistAttackRoll.biggest == 20) {
             const exorcistDamage = totalDamage(listOfExorcists[k]);
             listOfDemons[targets.demonTarget]["battleAttributes"].HP -= exorcistDamage;
             console.log("Exorcist hit Demon and did " + exorcistDamage + " damage! He's with " + listOfDemons[targets.demonTarget]["battleAttributes"].HP + " HP left.");

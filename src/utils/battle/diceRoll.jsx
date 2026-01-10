@@ -1,4 +1,4 @@
-const diceRoll = (dice, doesItNeedToSumTheResults) => {
+const diceRoll = (dice, doesItNeedToReturnAllDicesUsed) => {
     console.log("Rolling dice:", dice);
     const regex = /(\d+)d(\d+)([+-]\d+)?/;
     const match = dice.match(regex);
@@ -12,9 +12,17 @@ const diceRoll = (dice, doesItNeedToSumTheResults) => {
 
     const results = Array.from({ length: amount }, () => Math.floor(Math.random() * faces) + 1);
     const biggest = Math.max(...results);
-    if (doesItNeedToSumTheResults) {
-        let sum = results.reduce((a, b) => a + b, 0);
-        return sum + modifier;
+    if (biggest === 20) 
+        console.log("🎲 Critical Hit! Rolled a natural 20!")
+    if (doesItNeedToReturnAllDicesUsed) {
+        return {
+            dicesPlayed: dice,
+            roll: biggest + modifier,
+            allDices: results,
+            biggest: biggest,
+            modifier: modifier,
+            sum: results.reduce((a, b) => a + b, 0) + modifier
+        };
     }
     return biggest + modifier;
 }
