@@ -1,7 +1,7 @@
 import diceRoll from "./diceRoll";
 
 const totalDamage = (character) => {
-    const baseDamage = diceRoll(character["battleAttributes"].damageDice);
+    const baseDamage = diceRoll(character["battleAttributes"].damageDice, true).sum;
     let weaponDamage = 0; let extraDamage = 0; let extraDamageDice = 0;
     if (character["battleAttributes"]["weapon"]) {
         weaponDamage = character["battleAttributes"]["weapon"];

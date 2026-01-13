@@ -2,14 +2,18 @@ import diceRoll from "../diceRoll";
 import totalDamage from "../totalDamage";
 
 const exorcistsTurn = (targets, amountOfExorcists, amountOfDemons, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadDemons, p, battleStats) => {
-    for(let k = 0; k < listOfExorcists.length; k++) {
+for(let k = 0; k < listOfExorcists.length; k++) {
+        console.log("----------------------------------");
+        console.log("EXORCIST'S TURN! Exorcist number: ", k);
+        console.log("----------------------------------");
         let exorcistAttackRoll = diceRoll(listOfExorcists[k]["battleAttributes"].attackDice, true);
         let exorcistAttack = exorcistAttackRoll.roll;
         if (listOfExorcists[k]["battleAttributes"].isBlinded == true) {
             const dice = Math.floor(Math.random() * 2) + 1;
             console.log("The exorcist is blinded and is trying to attack!");
 
-            if (dice == 1) exorcistAttack = 0; // else exorcistAttack = exorcistAttack
+            if (dice == 1) 
+                exorcistAttack = 0; // else exorcistAttack = exorcistAttack
             
             listOfExorcists[k]["battleAttributes"].turnsBlinded--;
             if (listOfExorcists[k]["battleAttributes"].turnsBlinded == 0) {
@@ -24,7 +28,11 @@ const exorcistsTurn = (targets, amountOfExorcists, amountOfDemons, listOfExorcis
             }
         }
         else if (exorcistAttack >= listOfDemons[targets.demonTarget]["battleAttributes"].defense || exorcistAttackRoll.biggest == 20) {
-            const exorcistDamage = totalDamage(listOfExorcists[k]);
+            let exorcistDamage = totalDamage(listOfExorcists[k]);
+            if (exorcistAttackRoll.biggest == 20) {
+                exorcistDamage += diceRoll("3d10", true).sum;
+                console.log("CRITICAL HIT! It got an extra " + (exorcistDamage - totalDamage(listOfExorcists[k])) + " damage!");
+            }
             listOfDemons[targets.demonTarget]["battleAttributes"].HP -= exorcistDamage;
             console.log("Exorcist hit Demon and did " + exorcistDamage + " damage! He's with " + listOfDemons[targets.demonTarget]["battleAttributes"].HP + " HP left.");
             if (listOfDemons[targets.demonTarget]["battleAttributes"].HP <= 0) {

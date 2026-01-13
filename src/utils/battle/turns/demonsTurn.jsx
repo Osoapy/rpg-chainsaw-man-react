@@ -75,7 +75,7 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                 let counter = demonTargetForThisTurn + 1;
                 if (didTheDemonKillAnExorcistThisTurn)
                     counter = demonTargetForThisTurn;
-                for (let k = counter; demonDamageLeft > 0 && listOfExorcists[k]; k++) {
+                for (let k = counter; demonDamageLeft > 0 && listOfExorcists[k] && (!["chief", "adjunct", "executive"].includes(listOfExorcists[k].role.toLowerCase())); k++) {
                     // Apply damage to the next exorcist
                     console.log("Applying leftover damage to next exorcist...", listOfExorcists[k]);
                     // Check for exorcist HP before attack

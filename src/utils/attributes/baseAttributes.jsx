@@ -1,40 +1,61 @@
 const allAttributesLimit = {
-    "operator": 10,
-    "foreman": 14,
-    "supervisor": 15,
-    "chief": 18,
-    "adjunct": 22,
-    "executive": 28
+    operator: 10,
+    foreman: 14,
+    supervisor: 15,
+    chief: 18,
+    adjunct: 22,
+    executive: 28
 };
+
 const singleAttributesLimit = {
-    "operator": 3,
-    "foreman": 3,
-    "supervisor": 5,
-    "chief": 5,
-    "adjunct": 5,
-    "executive": 8
+    operator: 3,
+    foreman: 3,
+    supervisor: 5,
+    chief: 5,
+    adjunct: 5,
+    executive: 8
 };
+
 const maxNullAttributes = 1;
+
+const ATTRIBUTE_WEIGHTS = {
+    strength: 3,
+    agility: 2,
+    spirit: 1,
+    charisma: 1,
+    mind: 1,
+    body: 2
+};
+
+// 🎲 Sorteio ponderado
+const weightedRandom = (weights) => {
+    const entries = Object.entries(weights);
+    const totalWeight = entries.reduce((sum, [, w]) => sum + w, 0);
+
+    let roll = Math.random() * totalWeight;
+
+    for (const [key, weight] of entries) {
+        roll -= weight;
+        if (roll <= 0) return key;
+    }
+};
 
 const setBaseAttributes = (position, role) => {
     let attributes = {};
 
     if (position === "exorcist") {
-        const keys = ["strength", "agility", "body", "mind", "charisma", "spirit"];
+        const keys = Object.keys(ATTRIBUTE_WEIGHTS);
         const maxTotal = allAttributesLimit[role];
         const maxPerAttribute = singleAttributesLimit[role];
         let success = false;
 
-        // Tenta alocar de forma válida até conseguir
         while (!success) {
             attributes = {};
             keys.forEach(k => attributes[k] = 0);
             let remainingPoints = maxTotal;
 
-            // Distribuição aleatória com limite por atributo
             while (remainingPoints > 0) {
-                const randomIndex = Math.floor(Math.random() * keys.length);
-                const key = keys[randomIndex];
+                const key = weightedRandom(ATTRIBUTE_WEIGHTS);
 
                 if (attributes[key] < maxPerAttribute) {
                     attributes[key]++;
@@ -45,6 +66,7 @@ const setBaseAttributes = (position, role) => {
                     (sum, k) => sum + (maxPerAttribute - attributes[k]),
                     0
                 );
+
                 if (totalPossible === 0 && remainingPoints > 0) break;
             }
 
@@ -59,7 +81,7 @@ const setBaseAttributes = (position, role) => {
             }
         }
 
-        attributes["biggestAttribute"] = biggestAtributeValue;
+        attributes.biggestAttribute = biggestAtributeValue;
         return attributes;
     }
 

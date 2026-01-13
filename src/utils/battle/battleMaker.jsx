@@ -122,10 +122,6 @@ const battleMaker = (setBattleStats, demonBattleAttributes, exorcistBattleAttrib
                 }
 
                 if (battleStats["isItOver"]) break;
-                else { /* SPECIAL DEMONS SECOND TURN */
-                    demonsTurn(targets, amountOfDemons, amountOfExorcists, listOfExorcists, listOfDemons, deadCounts, arrayOfdeadExorcists, p, battleStats, true);
-                }
-                if (battleStats["isItOver"]) break;
             }
         }
 
