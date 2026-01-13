@@ -11,11 +11,12 @@ const createExorcist = (role, exorcistBattleAttributes) => {
         role : role,
         isBetterThanSupervisor : (role === "chief" || role === "adjunct" || role === "executive"),
         isWeaponReforced : (Math.random() < isReforcedPercentage),
+        especializations : []
     };
     exorcist["baseAttributes"] = setBaseAttributes(exorcist.position, role);
     exorcist["battleAttributes"] = setBattleAttributes(exorcist.position, exorcist.baseAttributes, exorcistBattleAttributes);
     if (exorcist["isBetterThanSupervisor"]) {
-        setExpecialization(exorcist.baseAttributes, exorcist.battleAttributes);
+        setExpecialization(exorcist.baseAttributes, exorcist.battleAttributes, exorcist.role, exorcist.especializations);
     }
     setWeapon(role, exorcist.battleAttributes, exorcist.isWeaponReforced);
 
