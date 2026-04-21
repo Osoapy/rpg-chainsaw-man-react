@@ -1,12 +1,12 @@
 const setWeapon = (role, battleAttributes, isReforced) => {
     let bonusDamage = 0;
     switch (role) {
-        case "operator" : bonusDamage = 5; break;
-        case "foreman" : bonusDamage = 5; break;
-        case "supervisor" : bonusDamage = 10; break;
-        case "chief": bonusDamage = 15; break;
-        case "adjunct": bonusDamage = 15; break;
-        case "executive": bonusDamage = 20; break;
+        case "operator" : bonusDamage = 4; break;
+        case "foreman" : bonusDamage = 4; break;
+        case "supervisor" : bonusDamage = 6; break;
+        case "chief": bonusDamage = 8; break;
+        case "adjunct": bonusDamage = 8; break;
+        case "executive": bonusDamage = 10; break;
     }
     if (isReforced) {
         const values = [5, 10, 15];
