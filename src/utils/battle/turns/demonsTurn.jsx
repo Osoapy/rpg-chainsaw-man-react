@@ -15,6 +15,7 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
             if (isThisASecondaryTurn && listOfExorcists[1]) {
                 demonTargetForThisTurn = 1;
             }
+            console.log(listOfExorcists[demonTargetForThisTurn], " is the target for this turn!");
             if (demonAttack >= listOfExorcists[demonTargetForThisTurn]["battleAttributes"].defense) {
                 const demonDamage = totalDamage(listOfDemons[j]);
                 console.log("Demon damage for this turn is: ", demonDamage);
@@ -29,10 +30,10 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                         battleStats["exorcistsKilled"]++;
                         deadCounts.deadExorcists++;
                         arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
-                        if (listOfExorcists.length === 0) {
+                        if (listOfExorcists.length == 0) {
                             console.log("THE BATTLE HAS ENDED!");
                             battleStats["isItOver"] = true;
-                            break;
+                            return 0;
                         }
                     demonDamageLeft = demonDamage;
                     console.log("The demon killed the exorcist! There is ", demonDamageLeft, " leftover damage left");
@@ -49,10 +50,10 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                         battleStats["exorcistsKilled"]++;
                         deadCounts.deadExorcists++;
                         arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
-                        if (listOfExorcists.length === 0) {
+                        if (listOfExorcists.length == 0) {
                             console.log("THE BATTLE HAS ENDED!");
                             battleStats["isItOver"] = true;
-                            break;
+                            return 0;
                         }
                 }
                 else {
@@ -87,10 +88,10 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                             battleStats["exorcistsKilled"]++;
                             deadCounts.deadExorcists++;
                             arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
-                            if (listOfExorcists.length === 0) {
+                            if (listOfExorcists.length == 0) {
                                 console.log("THE BATTLE HAS ENDED!");
                                 battleStats["isItOver"] = true;
-                                break;
+                                return 0;
                             }
                         console.log("Leftover damage killed the next exorcist that was dying, now there is ", demonDamageLeft, " left");
                     }
@@ -105,10 +106,10 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                             battleStats["exorcistsKilled"]++;
                             deadCounts.deadExorcists++;
                             arrayOfDeadExorcists[p] = deadCounts.deadExorcists;
-                            if (listOfExorcists.length === 0) {
+                            if (listOfExorcists.length == 0) {
                                 console.log("THE BATTLE HAS ENDED!");
                                 battleStats["isItOver"] = true;
-                                break;
+                                return 0;
                             }
                     }
                     else {
@@ -132,7 +133,7 @@ const demonsTurn = (targets, amountOfDemons, amountOfExorcists, listOfExorcists,
                     }
                 }
                 if (battleStats["isItOver"]) {
-                    break;
+                    return 0;
                 }
             } else {
                 console.log("The demon missed!");

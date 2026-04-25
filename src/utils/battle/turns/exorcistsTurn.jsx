@@ -2,7 +2,7 @@ import diceRoll from "../diceRoll";
 import totalDamage from "../totalDamage";
 
 const exorcistsTurn = (targets, amountOfExorcists, amountOfDemons, listOfExorcists, listOfDemons, deadCounts, arrayOfDeadDemons, p, battleStats) => {
-for(let k = 0; k < listOfExorcists.length; k++) {
+    for(let k = 0; k < listOfExorcists.length; k++) {
         console.log("----------------------------------");
         console.log("EXORCIST'S TURN! Exorcist number: ", k);
         console.log("----------------------------------");
@@ -43,7 +43,7 @@ for(let k = 0; k < listOfExorcists.length; k++) {
                     arrayOfDeadDemons[p] = deadCounts.deadDemons;
                     battleStats["amountOfExorcistsWins"]++;
                     battleStats["isItOver"] = true;
-                    break;
+                    return 0;
                 }
                 else {
                     console.log("ONE DEMON HAS FALLEN!");
