@@ -33,7 +33,7 @@ const setExpecialization = (baseAttributes, battleAttributes, role, especializat
             specializationsLeft -= 1;
         }
         else if (randomAttribute === "body" && !hasSpecializationOnBody) {
-            battleAttributes["HP"] += 50;
+            battleAttributes["HP"] += 30;
             console.log("The random expecialization was on body!");
             especializations.push(randomAttribute);
             hasSpecializationOnBody = true;
