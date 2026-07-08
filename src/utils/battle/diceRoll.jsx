@@ -7,9 +7,11 @@ const diceRoll = (dice, doesItNeedToReturnAllDicesUsed) => {
 
     const amount = parseInt(match[1], 10);
     const faces = parseInt(match[2], 10);
+    console.log("Rolling %d dice with %d faces", amount, faces);
     const modifier = match[3] ? parseInt(match[3], 10) : 0;
 
     const results = Array.from({ length: amount }, () => Math.floor(Math.random() * faces) + 1);
+    console.log("Rolled results without modifier: ", results);
     const biggest = Math.max(...results);
     if (doesItNeedToReturnAllDicesUsed) {
         const obj = {

@@ -6,6 +6,10 @@ const exorcistsTurn = (targets, amountOfExorcists, amountOfDemons, listOfExorcis
         console.log("----------------------------------");
         console.log("EXORCIST'S TURN! Exorcist number: ", k);
         console.log("----------------------------------");
+        if (listOfExorcists[k].role == "executive") {
+            listOfExorcists[k]["battleAttributes"]["attackDice"] = "2" + listOfExorcists[k]["battleAttributes"]["attackDice"].slice(1);
+            console.log("The exorcist is an executive and will have 2d20 for attacking! " + listOfExorcists[k]["battleAttributes"]["attackDice"] + " total");
+        }
         let exorcistAttackRoll = diceRoll(listOfExorcists[k]["battleAttributes"].attackDice, true);
         let exorcistAttack = exorcistAttackRoll.roll;
         if (listOfExorcists[k]["battleAttributes"].isBlinded == true) {

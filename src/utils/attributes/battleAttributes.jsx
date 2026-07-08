@@ -20,7 +20,7 @@ const setBattleAttributes = (position, baseAttributes, battleAttributes) => {
             fear: 0,
         }
     }
-    if (position == "demon") {
+    else if (position == "demon") {
         const calculateFearLevel = (baseAttributes) => {
             let fearLevel = 0;
             if (baseAttributes["level"] < 6) {
